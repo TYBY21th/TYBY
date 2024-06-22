@@ -1,7 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const mapElement = document.getElementById('map');
+    const menuIcon = document.getElementById('menu-icon');
+    const menu = document.getElementById('menu');
+    const body = document.body;
+
+    menuIcon.addEventListener('click', () => {
+        menu.classList.toggle('open');
+        menuIcon.classList.toggle('open');
+        body.classList.toggle('blur');
+    });
 
     // Initialize map (using Leaflet for simplicity)
+    const mapElement = document.getElementById('map');
     const map = L.map(mapElement).setView([51.505, -0.09], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -11,41 +20,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch and display shops
     fetch('api/shops.php')
         .then(response => response.json())
-        .then(data => {
-            data.shops.forEach(shop => {
-                L.marker([shop.latitude, shop.longitude])
-                    .addTo(map)
-                    .bindPopup(`<b>${shop.name}</b><br>${shop.address}`);
-            });
-        })
-        .catch(error => console.error('Error fetching shops:', error));
-
-    // Get user's current location
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(position => {
-            const lat = position.coords.latitude;
-            const long = position.coords.longitude;
-
-            const userMarker = L.marker([lat, long], {
-                icon: L.icon({
-                    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34]
-                })
-            }).addTo(map);
-
-            map.setView([lat, long], 13);
-
-            // Remove old markers and add new ones
-            const shops = mapElement.querySelectorAll('.leaflet-marker-icon');
-            shops.forEach(shop => map.removeLayer(shop));
-        }, error => console.error('Error getting location:', error), {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        });
-    } else {
-        console.error('Geolocation is not supported by this browser.');
-    }
-});
+        .
