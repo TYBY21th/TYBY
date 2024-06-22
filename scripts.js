@@ -20,4 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch and display shops
     fetch('api/shops.php')
         .then(response => response.json())
-        .
+        .then(data => {
+            data.forEach(shop => {
+                L.marker([shop.lat, shop.lng]).addTo(map)
+                    .bindPopup(`<b>${shop.name}</b><br>${shop.address}`);
+            });
+        })
+        .catch(error => console.error('Error fetching shop data:', error));
+});
