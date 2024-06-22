@@ -1,30 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const menuIcon = document.getElementById('menu-icon');
+    const dotsIcon = document.getElementById('dots-icon');
     const menu = document.getElementById('menu');
-    const body = document.body;
+    const pageContainer = document.querySelector('.page-container');
 
-    menuIcon.addEventListener('click', () => {
+    dotsIcon.addEventListener('click', () => {
         menu.classList.toggle('open');
-        menuIcon.classList.toggle('open');
-        body.classList.toggle('blur');
+        dotsIcon.classList.toggle('open');
+        pageContainer.classList.toggle('blur');
     });
 
     // Initialize map (using Leaflet for simplicity)
     const mapElement = document.getElementById('map');
-    const map = L.map(mapElement).setView([51.505, -0.09], 13);
+    if (mapElement) {
+        const map = L.map('map').setView([51.505, -0.09], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Fetch and display shops
-    fetch('api/shops.php')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(shop => {
-                L.marker([shop.lat, shop.lng]).addTo(map)
-                    .bindPopup(`<b>${shop.name}</b><br>${shop.address}`);
-            });
-        })
-        .catch(error => console.error('Error fetching shop data:', error));
+        L.marker([51.505, -0.09]).addTo(map)
+            .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+            .openPopup();
+    }
 });
