@@ -31,20 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
                     iconSize: [25, 41],
                     iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
+                    popupAnchor: [1, -34]
                 })
-            }).addTo(map).bindPopup('You are here').openPopup();
+            }).addTo(map);
 
             map.setView([lat, long], 13);
-        }, error => {
-            console.error('Error getting location:', error);
-        }, {
+
+            // Remove old markers and add new ones
+            const shops = mapElement.querySelectorAll('.leaflet-marker-icon');
+            shops.forEach(shop => map.removeLayer(shop));
+        }, error => console.error('Error getting location:', error), {
             enableHighAccuracy: true,
             timeout: 5000,
             maximumAge: 0
         });
     } else {
-        alert('Geolocation is not supported by your browser');
+        console.error('Geolocation is not supported by this browser.');
     }
 });
