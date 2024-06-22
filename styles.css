@@ -4,6 +4,10 @@ body {
     margin: 0;
     padding: 0;
     background: linear-gradient(45deg, #f4f4f4, #eaeaea);
+    overflow: hidden;
+}
+
+.page-container {
     transition: filter 0.3s ease-in-out; /* For smooth blur effect */
 }
 
@@ -52,34 +56,52 @@ nav ul li a:hover {
     color: #ddd;
 }
 
-/* Menu Icon Styles */
-.menu-icon {
+/* Dots Icon Styles */
+.dots-icon {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    justify-content: space-around;
+    height: 24px;
+    width: 24px;
+    position: relative;
+    z-index: 1001; /* Ensure dots are above blur effect */
 }
 
-.menu-icon .bar {
-    width: 25px;
-    height: 3px;
+.dots-icon .dot {
+    width: 5px;
+    height: 5px;
     background-color: #fff;
-    margin: 4px 0;
-    transition: 0.4s;
+    border-radius: 50%;
+    transition: 0.3s;
 }
 
-.menu-icon.open .bar:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
+.menu {
+    display: flex;
+    align-items: center;
 }
 
-.menu-icon.open .bar:nth-child(2) {
-    opacity: 0;
+.menu.open {
+    display: block;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1001; /* Ensure menu is above blur effect */
 }
 
-.menu-icon.open .bar:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
+.menu.open li {
+    margin: 10px 0;
 }
 
-/* Blur Effect for Body */
+.menu.open li a {
+    color: #fff;
+}
+
+/* Blur Effect for Background */
 .blur {
     filter: blur(5px);
 }
@@ -87,10 +109,23 @@ nav ul li a:hover {
 /* Responsive Styles */
 @media (max-width: 768px) {
     nav ul {
+        display: none;
+    }
+
+    nav ul.open {
+        display: block;
+    }
+
+    .dots-icon {
+        display: flex;
+    }
+
+    .menu.open {
+        display: block;
         flex-direction: column;
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
         height: 100%;
         width: 200px;
         background: #333;
@@ -99,15 +134,8 @@ nav ul li a:hover {
         transition: right 0.4s ease-in-out;
     }
 
-    nav ul.open {
+    .menu-icon.open {
         right: 0;
-    }
-
-    .menu-icon {
-        display: flex;
-        position: absolute;
-        top: 15px;
-        right: 15px;
     }
 }
 
