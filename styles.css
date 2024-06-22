@@ -11,8 +11,7 @@ body {
 header {
     background: #333;
     color: #fff;
-    padding: 10px 0;
-    text-align: center;
+    padding: 10px 20px;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -24,7 +23,6 @@ header {
 .logo {
     width: 100px;
     height: auto;
-    margin-left: 20px;
 }
 
 nav {
@@ -59,7 +57,6 @@ nav ul li a:hover {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    margin-right: 20px;
 }
 
 .menu-icon .bar {
@@ -108,6 +105,9 @@ nav ul li a:hover {
 
     .menu-icon {
         display: flex;
+        position: absolute;
+        top: 15px;
+        right: 15px;
     }
 }
 
@@ -212,12 +212,12 @@ footer {
 }
 
 /* Typing Animation */
-.container{
+.container {
     display: inline-block;
     font-family: "arial";
     font-size: 24px;
 }
-  
+
 .typed {
     overflow: hidden;
     white-space: nowrap;
@@ -225,12 +225,12 @@ footer {
     width: 0;
     animation: typing 1.5s steps(30, end) forwards, blinking 1s infinite;
 }
-  
+
 @keyframes typing {
     from { width: 0 }
     to { width: 100% }
 }
-  
+
 @keyframes blinking {
     0% { border-right-color: transparent }
     50% { border-right-color: black }
